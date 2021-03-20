@@ -25,4 +25,26 @@ async function fetchMovieDetails(id) {
   return { poster_path, title, overview, vote_average, genres };
 }
 
-export { fetchTrending, fetchMoviesWithQuery, fetchMovieDetails };
+async function fetchCast(id) {
+  const { data } = await axios.get(
+    `/movie/${id}/credits?api_key=${key}&language=en-US`,
+  );
+  const { cast } = data;
+  return { cast };
+}
+
+async function fetchReviews(id) {
+  const { data } = await axios.get(
+    `/movie/${id}/reviews?api_key=${key}&language=en-US&page=1`,
+  );
+  const { results } = data;
+  return { results };
+}
+
+export {
+  fetchTrending,
+  fetchMoviesWithQuery,
+  fetchMovieDetails,
+  fetchCast,
+  fetchReviews,
+};
